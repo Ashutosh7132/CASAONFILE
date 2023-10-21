@@ -5,8 +5,9 @@ import lombok.Getter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+
 @Getter
-public class COFPaymentDto {
+public class COFPaymentInquiryDto {
 
     private String userId;
     private String merchantId;
@@ -24,7 +25,7 @@ public class COFPaymentDto {
 
     private byte[] checksum;
 
-    public COFPaymentDto(String userId, String merchantId, String merchantTxnRefNo, Date dateTime, String txnType, String nonce, byte[] checksum, String txnAmount, String txnCurrency, String txnDescription) throws NoSuchAlgorithmException {
+    public COFPaymentInquiryDto(String userId, String merchantId, String merchantTxnRefNo, Date dateTime, String txnType, String nonce, byte[] checksum, String txnAmount, String txnCurrency, String txnDescription) throws NoSuchAlgorithmException {
         this.userId = userId;
         this.merchantId = merchantId;
         this.merchantTxnRefNo = merchantTxnRefNo;
