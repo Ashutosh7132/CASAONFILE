@@ -5,9 +5,8 @@ import lombok.Getter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
-
 @Getter
-public class COFTokenDto {
+public class COFTokenRenewDto {
 
     private String userId;
     private String merchantId;
@@ -22,9 +21,11 @@ public class COFTokenDto {
 
     private String nonce;
 
+    private String tokenRefNo;
+
     private byte[] checksum;
 
-    public COFTokenDto(String userId, String merchantId, String merchantTxnRefNo, String txnDescription, Date dateTime, String txnType, String nonce, byte[] checksum) throws NoSuchAlgorithmException {
+    public COFTokenRenewDto(String userId, String merchantId, String merchantTxnRefNo, String txnDescription, Date dateTime, String txnType, String nonce, String tokenRefNo,byte[] checksum) throws NoSuchAlgorithmException {
         this.userId = userId;
         this.merchantId = merchantId;
         this.merchantTxnRefNo = merchantTxnRefNo;
@@ -32,6 +33,7 @@ public class COFTokenDto {
         this.dateTime = dateTime;
         this.txnType = txnType;
         this.nonce = nonce;
+        this.tokenRefNo = tokenRefNo;
         this.checksum = calculateChecksum();
     }
 
@@ -39,11 +41,10 @@ public class COFTokenDto {
 
         String data = userId.concat("|").concat(merchantId).concat("|").concat(merchantTxnRefNo)
                 .concat("|").concat(txnDescription).concat("|").concat(String.valueOf(dateTime)).
-                concat("|").concat(txnType).concat("|").concat(nonce);
+                concat("|").concat(txnType).concat("|").concat(nonce).concat("|").concat(tokenRefNo);
 
         MessageDigest md = MessageDigest.getInstance("SHA-256");
 
         return md.digest(data.getBytes());
     }
-
 }
